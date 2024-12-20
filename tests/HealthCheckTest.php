@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace App\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\Shared\AbstractTestCase;
 
-class HealthCheckTest extends WebTestCase
+class HealthCheckTest extends AbstractTestCase
 {
     public function testHealthCheck()
     {
-        $client = static::createClient();
-        $client->request('GET', '/health-check');
-        $body = $client->getResponse()->getContent();
+        $this->client->request('GET', '/health-check');
+        $body = $this->client->getResponse()->getContent();
 
         $expectedBody = [
             'message' => 'Service is healthy',
             'code' => 200,
         ];
 
-        $this->assertSame(200, $client->getResponse()->getStatusCode());
+        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSame($body, json_encode($expectedBody));
     }
 }

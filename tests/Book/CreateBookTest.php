@@ -10,7 +10,7 @@ use App\Tests\Shared\AbstractTestCase;
 class CreateBookTest extends AbstractTestCase
 {
 
-    public function test_that_a_book_can_be_created()
+    public function testBookCanBeCreated()
     {
         $this->client->request('POST', '/api/v1/book', [
             'title' => 'El libro de la vida',

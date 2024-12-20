@@ -15,9 +15,7 @@ class BookCreator
     ) {}
 
     public function create(BookCreateCommand $command): int
-    {
-        return 1;
-        
+    {        
         $book = (new Book())
             ->setTitle($command->title)
             ->setAuthor($command->author)
