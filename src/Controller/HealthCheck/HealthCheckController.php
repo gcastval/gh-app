@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class HealthCheckController
 {
-
     #[Route('/health-check', name: 'health_check')]
     public function _invoke()
     {

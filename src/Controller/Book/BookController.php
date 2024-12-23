@@ -14,14 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/v1/book', name: 'book')]
 class BookController extends AbstractController
 {
-
     public function __construct(
-        private readonly BookCreator $service 
-    )
-    {}
+        private readonly BookCreator $service,
+    ) {
+    }
 
     #[Route(name: 'create_book', methods: ['POST'])]
-    public function _create(#[MapRequestPayload] BookCreateCommand $book): JsonResponse 
+    public function _create(#[MapRequestPayload] BookCreateCommand $book): JsonResponse
     {
 
         $id = $this->service->create($book);

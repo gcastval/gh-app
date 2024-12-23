@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 abstract class AbstractTestCase extends WebTestCase
 {
     protected ?EntityManagerInterface $entityManager;
-    protected  $client;
+    protected $client;
 
     protected function setUp(): void
     {

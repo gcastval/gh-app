@@ -9,7 +9,6 @@ use App\Tests\Shared\AbstractTestCase;
 
 class CreateBookTest extends AbstractTestCase
 {
-
     public function testBookCanBeCreated()
     {
         $this->client->request('POST', '/api/v1/book', [
@@ -21,8 +20,8 @@ class CreateBookTest extends AbstractTestCase
             'publisher' => 'La casa del libro',
             'published_at' => '2024-12-20',
         ]);
-        
-        
+
+
         $body = json_decode($this->client->getResponse()->getContent(), true);
         $statusCode = $this->client->getResponse()->getStatusCode();
 
