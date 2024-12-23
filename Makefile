@@ -49,9 +49,8 @@ migration:
 ping-database:
 	docker exec db mysqladmin ping -h db -P 3306 --silent
 
-
 lint-check:
-	${VENDOR_DIR}php-cs-fixer fix src --dry-run
+	docker exec app vendor/bin/php-cs-fixer fix src --dry-run --diff
 
 lint-fix:
-	${VENDOR_DIR}php-cs-fixer fix src
+	docker exec app vendor/bin/php-cs-fixer fix src
