@@ -24,16 +24,10 @@ test:
 
 	@echo "db is available"
 
-	$(MAKE) setup-docker-test-db
+	$(MAKE) setup-db
 	docker exec app php bin/phpunit
 
-	$(MAKE) docker-test-stop
-
-
-docker-test-stop:
-	docker-compose -f docker-compose.test.yml down
-
-setup-docker-test-db:
+setup-db:
 	docker exec app make create-database env=test
 	docker exec app make migrate-database env=test
 
