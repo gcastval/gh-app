@@ -28,6 +28,18 @@ class BookCreator
         $this->em->flush();
 
         return $book->getId();
+    }
+
+    public function getAll(): array
+    {
+        $books = $this->em->getRepository(Book::class)->findAll();
+
+        return array_map(function ($book) {
+            return [
+                'id' => $book->getId(),
+                'title' => $book->getTitle(),
+            ];
+        }, $books);
 
     }
 }

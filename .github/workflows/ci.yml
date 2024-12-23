@@ -5,11 +5,11 @@ on:
     branches:
       - main
   pull_request:
-
+    branches:
+      - main
 
 jobs:
   test:
-    
     runs-on: ubuntu-latest
 
     steps:
@@ -27,3 +27,26 @@ jobs:
 
       - name: ✅ Run the tests
         run: make test
+      
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ github.event_name == 'push' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          docker build -t gcastval/gh-app:latest -t gcastval/gh-app:${SHORT_SHA} .
+          docker push ghcr.io/gcastval/gh-app:latest
+          docker push ghcr.io/gcastval/gh-app:${SHORT_SHA}

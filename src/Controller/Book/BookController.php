@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Service\Book\BookCreator;
 use App\Command\Book\BookCreateCommand;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 
 #[Route('/api/v1/book', name: 'book')]
 class BookController extends AbstractController
@@ -28,5 +29,13 @@ class BookController extends AbstractController
         return new JsonResponse([
             'id' => $id,
         ]);
+    }
+
+    #[Route(name: 'list_books', methods: ['GET'])]
+    public function _get(int $id): JsonResponse
+    {
+        $books = $this->service->getAll($id);
+
+        return new JsonResponse($books, Response::HTTP_OK);
     }
 }
