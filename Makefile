@@ -10,7 +10,7 @@ endif
 
 
 start:
-	docker-compose -f docker-compose.test.yml up --build -d
+	docker compose -f docker-compose.test.yml up --build -d
 
 test:
 	@echo "waiting for db to be available..."
