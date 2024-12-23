@@ -47,6 +47,6 @@ jobs:
       - name: Build and push
         run: |
           SHORT_SHA=${GITHUB_SHA::7}
-          docker build -t gcastval/gh-app:latest -t gcastval/gh-app:${SHORT_SHA} .
+          docker build -t ghcr.io/gcastval/gh-app:latest -t ghcr.io/gcastval/gh-app:${SHORT_SHA} .
           docker push ghcr.io/gcastval/gh-app:latest
           docker push ghcr.io/gcastval/gh-app:${SHORT_SHA}
