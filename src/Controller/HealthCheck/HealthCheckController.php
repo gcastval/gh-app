@@ -14,7 +14,7 @@ class HealthCheckController
     public function _invoke()
     {
         return new JsonResponse([
-            // 'message' => 'Service is healthy',
+            'message' => 'Service is healthy',
             'code' => Response::HTTP_OK,
         ]);
     }
