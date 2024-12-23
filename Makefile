@@ -1,10 +1,18 @@
 
 env ?= dev
 
+ifeq ($(OS),Windows_NT)
+DIR_SEPARATOR=\\
+VENDOR_DIR=.\\vendor\\bin\\
+else
+DIR_SEPARATOR=/
+endif
 
-test-ci:
-	$(MAKE) docker-test-start 
 
+start:
+	docker-compose -f docker-compose.test.yml up --build -d
+
+test:
 	@echo "waiting for db to be available..."
 
 	@bash -c ' \
@@ -22,18 +30,12 @@ test-ci:
 	$(MAKE) docker-test-stop
 
 
-docker-test-start:
-	docker-compose -f docker-compose.test.yml up --build -d
-
 docker-test-stop:
 	docker-compose -f docker-compose.test.yml down
 
 setup-docker-test-db:
 	docker exec app make create-database env=test
 	docker exec app make migrate-database env=test
-
-test:
-	php bin/phpunit
 
 create-database:
 	php bin/console doctrine:database:create --if-not-exists --env=${env}
@@ -46,3 +48,10 @@ migration:
 
 ping-database:
 	docker exec db mysqladmin ping -h db -P 3306 --silent
+
+
+lint-check:
+	${VENDOR_DIR}php-cs-fixer fix src --dry-run
+
+lint-fix:
+	${VENDOR_DIR}php-cs-fixer fix src
