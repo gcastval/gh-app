@@ -52,7 +52,8 @@ jobs:
         env: 
           SHA: ${{ github.sha }}
         run: |
-          echo "SHORT_SHA: $SHORT_SHA:0:7"
+          SHORT_SHA="${SHA:0:7}"
+          echo "SHORT_SHA: $SHORT_SHA"
           docker build -t ghcr.io/gcastval/gh-app:latest -t ghcr.io/gcastval/gh-app:${SHA} .
           docker push ghcr.io/gcastval/gh-app:latest
           docker push ghcr.io/gcastval/gh-app:${SHA}
