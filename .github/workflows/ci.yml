@@ -13,24 +13,6 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    # steps:
-    #   - name: Checkout
-    #     uses: actions/checkout@v3
-
-    #   - name: Pull Docker images
-    #     run: docker compose -f docker-compose.test.yml pull
-
-    #   - name: Start environment
-    #     run: make start
-
-    #   - name: Lint
-    #     run: make lint-check
-
-    #   - name: ✅ Run the tests
-    #     run: make test
       
   build-image:
     runs-on: ubuntu-latest
