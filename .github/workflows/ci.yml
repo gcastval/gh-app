@@ -72,7 +72,7 @@ jobs:
           echo "$EC2_PRIVATE_KEY" > ~/aws-key.pem
           chmod 400 ~/aws-key.pem
           
-          ssh -i ~/aws-key.pem ec2-user@ec2-3-250-87-134.eu-west-1.compute.amazonaws.com "
+          ssh -o StrictHostKeyChecking=no -i ~/aws-key.pem ec2-user@ec2-3-250-87-134.eu-west-1.compute.amazonaws.com "
             /app/api/update-app.sh
           "
               
