@@ -49,9 +49,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push to GHCR
+        env: 
+          SHORT_SHA: ${{ github.sha }}
         run: |
-          echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+          echo "SHORT_SHA=${github.sha::7}" >> $GITHUB_ENV
           echo "SHORT_SHA: $SHORT_SHA"
+          
           docker build -t ghcr.io/gcastval/gh-app:latest -t ghcr.io/gcastval/gh-app:${SHORT_SHA} .
           docker push ghcr.io/gcastval/gh-app:latest
           docker push ghcr.io/gcastval/gh-app:${SHORT_SHA}
