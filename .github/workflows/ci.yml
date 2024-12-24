@@ -49,10 +49,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push to GHCR
+        env: 
+          SHA: ${{ github.sha }}
         run: |
-          docker build -t ghcr.io/gcastval/gh-app:latest -t ghcr.io/gcastval/gh-app:${github.sha} .
+          docker build -t ghcr.io/gcastval/gh-app:latest -t ghcr.io/gcastval/gh-app:${SHA:0:7} .
           docker push ghcr.io/gcastval/gh-app:latest
-          docker push ghcr.io/gcastval/gh-app:${github.sha}
+          docker push ghcr.io/gcastval/gh-app:${SHA:0:7}
 
   deploy-to-aws:
     runs-on: ubuntu-latest
