@@ -54,10 +54,14 @@ jobs:
         run: |
           SHORT_SHA="${SHA:0:7}"
           echo "SHORT_SHA: $SHORT_SHA"
+
+          docker compose build gh-app
           
-          docker compose build 
-          docker tag ghcr.io/gcastval/gh-app:latest ghcr.io/gcastval/gh-app:$SHORT_SHA
-          docker push ghcr.io/gcastval/gh-app:latest ghcr.io/gcastval/gh-app:$SHORT_SHA
+          docker tag gh-app ghcr.io/gcastval/gh-app:latest
+          docker tag gh-app ghcr.io/gcastval/gh-app:$SHORT_SHA
+
+          docker push ghcr.io/gcastval/gh-app:latest 
+          docker push ghcr.io/gcastval/gh-app:$SHORT_SHA
 
   deploy-to-aws:
     runs-on: ubuntu-latest
